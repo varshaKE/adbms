@@ -1,0 +1,157 @@
+
+SQL> create table employee(empid number(4),name varchar(10),dept varchar(10),salary number(5),city varchar(10)));
+
+
+Table created.
+
+
+SQL> desc employee;
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(10)
+ DEPT                                               VARCHAR2(10)
+ SALARY                                             NUMBER(5)
+ CITY                                               VARCHAR2(10)
+
+SQL> insert into employee values(&empid,'&name','&dept',&salary,'&city');
+Enter value for empid: 1
+Enter value for name: anu
+Enter value for dept: sales
+Enter value for salary: 73000
+Enter value for city: kochi
+old   1: insert into employee values(&empid,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(1,'anu','sales',73000,'kochi')
+
+1 row created.
+
+SQL> insert into employee values(&empid,'&name','&dept',&salary,'&city');
+Enter value for empid: 2
+Enter value for name: manu
+Enter value for dept: finance
+Enter value for salary: 7400
+Enter value for city: cherai
+old   1: insert into employee values(&empid,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(2,'manu','finance',7400,'cherai')
+
+1 row created.
+
+
+SQL> insert into employee values(&empid,'&name','&dept',&salary,'&city');
+Enter value for empid: 3
+Enter value for name: vinu
+Enter value for dept: sales
+Enter value for salary: 7500
+Enter value for city: kochi
+old   1: insert into employee values(&empid,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(3,'vinu','sales',7500,'kochi')
+
+1 row created.
+
+SQL> insert into employee values(&empid,'&name','&dept',&salary,'&city');
+Enter value for empid: 4
+Enter value for name: sonu
+Enter value for dept: finance
+Enter value for salary: 8000
+Enter value for city: cherai
+old   1: insert into employee values(&empid,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(4,'sonu','finance',8000,'cherai')
+
+1 row created.
+
+SQL> insert into employee values(&empid,'&name','&dept',&salary,'&city');
+Enter value for empid: 5
+Enter value for name: sinu
+Enter value for dept: sales
+Enter value for salary: 9000
+Enter value for city: kochi
+old   1: insert into employee values(&empid,'&name','&dept',&salary,'&city')
+new   1: insert into employee values(5,'sinu','sales',9000,'kochi')
+
+1 row created.
+
+SQL> select *from employee;
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         1 anu        sales           73000 kochi
+         2 manu       finance          7400 cherai
+         3 vinu       sales            7500 kochi
+         4 sonu       finance          8000 cherai
+         5 sinu       sales            9000 kochi
+
+
+
+SQL> select *from employee where dept='sales';
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         1 anu        sales           73000 kochi
+         3 vinu       sales            7500 kochi
+         5 sinu       sales            9000 kochi
+
+SQL> select *from employee where empid='1';
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         1 anu        sales           73000 kochi
+
+SQL> select *from employee where salary between 7000 and 8000;
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         2 manu       finance          7400 cherai
+         3 vinu       sales            7500 kochi
+         4 sonu       finance          8000 cherai
+
+SQL> select *from employee order by name;
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         1 anu        sales           73000 kochi
+         2 manu       finance          7400 cherai
+         5 sinu       sales            9000 kochi
+         4 sonu       finance          8000 cherai
+         3 vinu       sales            7500 kochi
+
+SQL> update employee set salary=salary+250;
+
+5 rows updated.
+
+SQL> select *from employee;
+
+     EMPID NAME       DEPT           SALARY CITY
+---------- ---------- ---------- ---------- ----------
+         1 anu        sales           73250 kochi
+         2 manu       finance          7650 cherai
+         3 vinu       sales            7750 kochi
+         4 sonu       finance          8250 cherai
+         5 sinu       sales            9250 kochi
+
+
+
+SQL> alter table employee add doj date;
+
+Table altered.
+
+SQL> select *from employee;
+
+     EMPID NAME       DEPT           SALARY CITY       DOJ
+---------- ---------- ---------- ---------- ---------- ---------
+         1 anu        sales           73250 kochi
+         2 manu       finance          7650 cherai
+         3 vinu       sales            7750 kochi
+         4 sonu       finance          8250 cherai
+         5 sinu       sales            9250 kochi
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(4)
+ NAME                                               VARCHAR2(10)
+ DEPT                                               VARCHAR2(10)
+ SALARY                                             NUMBER(5)
+ CITY                                               VARCHAR2(10)
+ DOJ                                                DATE
+

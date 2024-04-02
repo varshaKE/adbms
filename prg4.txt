@@ -1,0 +1,170 @@
+
+SQL> create table department(deptid number(3) , deptname varchar(10), city varchar(10) );
+
+Table created.
+
+
+SQL> alter table department add primary key(deptid);
+
+Table altered.
+
+
+
+
+
+SQL> insert into department values(1,'sales','kochi');
+
+1 row created.
+
+SQL> insert into department values(2,'finance','ernakulam');
+
+1 row created.
+
+SQL> insert into department values(3,'tax','kozhikode');
+
+1 row created.
+
+SQL> insert into department values(4,'sales','cherai');
+
+1 row created.
+
+SQL> insert into department values(5,'tax','kochi');
+
+1 row created.
+
+
+
+SQL> create table employee( empid number(3) primary key,empname varchar(10),deptid number(3), foreign key(deptid) references department(deptid), salary number(8) );
+
+Table created.
+
+
+SQL> insert into employee values(1,'anu',1,20000);
+
+1 row created.
+
+SQL> insert into employee values(2,'manu',2,25000);
+
+1 row created.
+
+SQL> insert into employee values(3,'sanu',3,20000);
+
+1 row created.
+
+SQL> insert into employee values(4,'sonu',3,30000);
+
+1 row created.
+
+SQL> insert into employee values(5,'vinu',5,20000);
+
+1 row created.
+
+SQL> update employee set deptid=4 where empid=4;
+
+1 row updated.
+
+
+SQL> select *from employee;
+
+     EMPID EMPNAME        DEPTID     SALARY
+---------- ---------- ---------- ----------
+         1 anu                 1      20000
+         2 manu                2      25000
+         3 sanu                3      20000
+         4 sonu                4      30000
+         5 vinu                5      20000
+
+SQL> select *from department;
+
+    DEPTID DEPTNAME   CITY
+---------- ---------- ----------
+         1 sales      kochi
+         2 finance    ernakulam
+         3 tax        kozhikode
+         4 sales      cherai
+         5 tax        kochi
+
+SQL> insert into employee values(6,'janu',6,20000);
+insert into employee values(6,'janu',6,20000)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SYSTEM.SYS_C004031) violated - parent key not
+found
+
+
+SQL> delete from employee where empid=5;
+
+1 row deleted.
+
+SQL> select *from employee;
+
+     EMPID EMPNAME        DEPTID     SALARY
+---------- ---------- ---------- ----------
+         1 anu                 1      20000
+         2 manu                2      25000
+         3 sanu                3      20000
+         4 sonu                4      30000
+
+SQL> select empname,deptname from employee,department where employee.deptid=department.deptid;
+
+EMPNAME    DEPTNAME
+---------- ----------
+anu        sales
+manu       finance
+sanu       tax
+sonu       sales
+
+
+SQL> select city from employee,department where city='kochi' and employee.deptid=department.deptid;
+
+CITY
+----------
+kochi
+
+SQL> select empname from employee,department where city='kochi' and employee.deptid=department.deptid;
+
+EMPNAME
+----------
+anu
+
+
+
+
+
+
+
+SQL> delete from employee where empname='manu';
+
+1 row deleted.
+
+
+SQL> update employee set salary=salary+500 where deptid='3';
+
+1 row updated.
+
+
+
+
+SQL> select empname,deptname from employee,department where salary>20000 and employee.deptid=department.deptid;
+
+EMPNAME    DEPTNAME
+---------- ----------
+sanu       tax
+sonu       sales
+
+
+
+SQL> update employee set empname ='sinu' where deptid='4';
+
+1 row updated.
+
+
+SQL> select empname from employee,department where empid='4' and employee.deptid=department.deptid;
+
+EMPNAME
+----------
+sinu
+
+
+
+

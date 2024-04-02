@@ -1,0 +1,88 @@
+SQL> select * from sailors,reserves where bid=101 and sailors.sid=reserves.sid;
+
+       SID SNAME          RATING        AGE        SID        BID DAY
+---------- ---------- ---------- ---------- ---------- ---------- ---------
+        22 dustin              7         45         22        101 10-OCT-98
+        64 horatio             7         35         64        101 09-MAY-98
+
+SQL> select distinct sname,age from sailors,boats,reserves where color='red' and sailors.sid=reserves.sid and boats.bid=reserves.bid order by age;
+
+SNAME             AGE
+---------- ----------
+horatio            35
+dustin             45
+lubber           55.5
+
+SQL> select distinct sname from sailors,reserves where sailors.sid=reserves.sid;
+
+SNAME
+----------
+lubber
+dustin
+horatio
+
+SQL> select distinct s.sid,s.sname from sailors s,reserves r1,reserves r2 where s.sid=r1.sid and s.sid=r2.sid and r1.day=r2.day and r1.bid!=r2.bid;
+
+       SID SNAME
+---------- ----------
+        22 dustin
+
+SQL> select distinct sname from sailors;
+
+SNAME
+----------
+brutus
+bob
+lubber
+andy
+rusty
+dustin
+zorba
+art
+horatio
+
+SQL> select sid from boats,reserves where reserves.bid=boats.bid and color='red' union select sid from boats,reserves where reserves.bid=boats.bid and color='green';
+
+       SID
+----------
+        22
+        31
+        64
+        74
+
+SQL> select sname from sailors,reserves where bid=103 and sailors.sid=reserves.sid;
+
+SNAME
+----------
+dustin
+lubber
+horatio
+
+SQL> select sname,age from sailors where age=(select min(age) from sailors);
+
+SNAME             AGE
+---------- ----------
+zorba              16
+
+SQL> select rating,avg(age) from sailors group by rating;
+
+    RATING   AVG(AGE)
+---------- ----------
+         1         33
+         8       40.5
+         7         40
+         3       44.5
+        10       25.5
+         9         35
+
+SQL> select count(distinct sname) from sailors;
+
+COUNT(DISTINCTSNAME)
+--------------------
+                   9
+
+SQL> select avg(age) from sailors;
+
+  AVG(AGE)
+----------
+      36.9

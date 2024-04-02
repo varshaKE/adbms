@@ -1,0 +1,196 @@
+SQL> create table category(categoryid number(2) primary key,categoryname varchar(10), description varchar(10) );
+
+Table created.
+
+SQL> create table product(productid number(2) primary key , productname varchar(8) ,categoryid number(3), foreign key(categoryid) references category(categoryid) , price number(10) );
+
+Table created.
+
+
+SQL> insert into category values(1,'soap',20);
+
+1 row created.
+
+SQL> insert into category values(2,'soap',30);
+
+1 row created.
+
+SQL> insert into category values(3,'milk',30);
+
+1 row created.
+
+SQL> insert into category values(4,'milk',50);
+
+1 row created.
+
+SQL> insert into category values(5,'teapowder',20);
+
+1 row created.
+
+SQL> insert into category values(6,'teapowder',40);
+
+1 row created.
+
+
+
+SQL> select *from category;
+
+CATEGORYID CATEGORYNA DESCRIPTIO
+---------- ---------- ----------
+         1 soap       20
+         2 soap       30
+         3 milk       30
+         4 milk       50
+         5 teapowder  20
+         6 teapowder  40
+
+6 rows selected.
+
+
+
+SQL> insert into product values(01,'vivel',1,20);
+
+1 row created.
+
+SQL> insert into product values(02,'pears',2,30);
+
+1 row created.
+
+SQL> insert into product values(03,'amul',3,25);
+
+1 row created.
+
+SQL> insert into product values(04,'milma',4,28);
+
+1 row created.
+
+SQL> insert into product values(05,'avt',5,30);
+
+1 row created.
+
+SQL> insert into product values(06,'bru',6,40);
+
+1 row created.
+
+SQL> select *from product;
+
+ PRODUCTID PRODUCTN CATEGORYID      PRICE
+---------- -------- ---------- ----------
+         1 vivel             1         20
+         2 pears             2         30
+         3 amul              3         25
+         4 milma             4         28
+         5 avt               5         30
+         6 bru               6         40
+
+6 rows selected.
+
+
+
+
+
+
+
+
+SQL> insert into category values(7,'pen',20);
+
+1 row created.
+
+SQL> select *from category;
+
+CATEGORYID CATEGORYNA DESCRIPTIO
+---------- ---------- ----------
+         1 soap       20
+         2 soap       30
+         3 milk       30
+         4 milk       50
+         5 teapowder  20
+         6 teapowder  40
+         7 pen        20
+
+7 rows selected.
+
+SQL> select *from product;
+
+ PRODUCTID PRODUCTN CATEGORYID      PRICE
+---------- -------- ---------- ----------
+         1 vivel             1         20
+         2 pears             2         30
+         3 amul              3         25
+         4 milma             4         28
+         5 avt               5         30
+         6 bru               6         40
+
+6 rows selected.
+
+SQL> select productid,productname,categoryname from product natural join category;
+
+ PRODUCTID PRODUCTN CATEGORYNA
+---------- -------- ----------
+         1 vivel    soap
+         2 pears    soap
+         3 amul     milk
+         4 milma    milk
+         5 avt      teapowder
+         6 bru      teapowder
+
+6 rows selected.
+
+
+
+SQL> select productid,productname,categoryname from product natural right outer join category;
+
+ PRODUCTID PRODUCTN CATEGORYNA
+---------- -------- ----------
+         1 vivel    soap
+         2 pears    soap
+         3 amul     milk
+         4 milma    milk
+         5 avt      teapowder
+         6 bru      teapowder
+                    pen
+
+7 rows selected.
+
+SQL> select productid,productname,categoryname from product natural left outer join category;
+
+ PRODUCTID PRODUCTN CATEGORYNA
+---------- -------- ----------
+         1 vivel    soap
+         2 pears    soap
+         3 amul     milk
+         4 milma    milk
+         5 avt      teapowder
+         6 bru      teapowder
+
+6 rows selected.
+
+SQL> select productid,productname,categoryname from product natural full outer join category;
+
+ PRODUCTID PRODUCTN CATEGORYNA
+---------- -------- ----------
+         1 vivel    soap
+         2 pears    soap
+         3 amul     milk
+         4 milma    milk
+         5 avt      teapowder
+         6 bru      teapowder
+                    pen
+
+7 rows selected.
+
+SQL> select productid,productname,categoryname from product inner join category on product.categoryid=category.categoryid;
+
+ PRODUCTID PRODUCTN CATEGORYNA
+---------- -------- ----------
+         1 vivel    soap
+         2 pears    soap
+         3 amul     milk
+         4 milma    milk
+         5 avt      teapowder
+         6 bru      teapowder
+
+6 rows selected.
+
+
+

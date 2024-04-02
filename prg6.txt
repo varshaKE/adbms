@@ -1,0 +1,159 @@
+ select *from sailor;
+
+       SID SNAME          RATING        AGE
+---------- ---------- ---------- ----------
+        22 dustin              7         45
+        29 brutus              1         33
+        31 lubber              8       55.5
+        32 andy                8       25.5
+        58 rusty              10         35
+        64 horatio             7         35
+        71 zorba              10         16
+        74 horatio             9         35
+        85 art                 3       25.5
+        95 bob                 3       63.5
+
+10 rows selected.
+
+
+
+SQL> select *from boat;
+
+       BID BNAME      COLOR
+---------- ---------- -------
+       101 interlake  blue
+       102 interlake  red
+       103 clipper    green
+       104 marine     red
+
+SQL> select *from reserve;
+
+       SID        BID DAY
+---------- ---------- ---------
+        22        101 10-OCT-98
+        22        102 10-OCT-98
+        22        103 10-AUG-98
+        22        104 11-JUN-98
+        31        102 11-FEB-98
+        31        103 11-FEB-98
+        31        104 09-MAY-98
+        64        101 09-MAY-98
+        64        102 09-AUG-98
+        74        103 09-AUG-98
+
+10 rows selected.
+
+
+SQL> select distinct sname from sailor;
+
+SNAME
+----------
+brutus
+bob
+lubber
+andy
+rusty
+dustin
+zorba
+art
+horatio
+
+9 rows selected.
+
+
+ select *from sailor,reserve where bid='101' and sailor.sid = reserve.sid;
+
+       SID SNAME          RATING        AGE        SID        BID DAY
+---------- ---------- ---------- ---------- ---------- ---------- ---------
+        22 dustin              7         45         22        101 10-OCT-98
+        64 horatio             7         35         64        101 09-MAY-98
+
+
+
+
+ select  sname from sailor,reserve,boat where color='red' and sailor.sid=reserve.sid and boat.bid = reserve.bid order by age;
+
+SNAME
+----------
+horatio
+dustin
+dustin
+lubber
+lubber
+
+
+SQL> select distinct sname,age from sailor,reserve,boat where color='red' and sailor.sid=reserve.sid and boat.bid = reserve.bid order by age;
+
+SNAME             AGE
+---------- ----------
+horatio            35
+dustin             45
+lubber           55.5
+
+
+SQL> select distinct sname from sailor,reserve where sailor.sid = reserve.sid;
+
+SNAME
+----------
+lubber
+dustin
+
+
+SQL> select sid from boat,reserve where color='red' and  reserve.bid=boat.bid  union  select sid from  boat,reserve where color='green'  and  reserve.bid = boat.bid;
+
+       SID
+----------
+        22
+        31
+        64
+        74
+
+
+SQL> select sname from sailor,reserve where bid='103' and sailor.sid=reserve.sid;
+
+SNAME
+----------
+dustin
+lubber
+horatio
+
+
+
+SQL> select sname,age from sailor where age <=all(select age from sailor);
+
+SNAME             AGE
+---------- ----------
+zorba              16
+
+SQL> select sname,age from sailor where age =(select min(age) from sailor);
+
+SNAME             AGE
+---------- ----------
+zorba              16
+
+SQL> select rating , avg(age) from sailor group by rating;
+
+    RATING   AVG(AGE)
+---------- ----------
+         1         33
+         8       40.5
+         7         40
+         3       44.5
+        10       25.5
+         9         35
+
+6 rows selected.
+
+SQL> select count(distinct sname)  from sailor;
+
+COUNT(DISTINCTSNAME)
+--------------------
+                   9
+
+SQL> select avg(age) from sailor;
+
+  AVG(AGE)
+----------
+      36.9
+
+SQL>
